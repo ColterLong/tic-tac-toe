@@ -125,6 +125,8 @@ body {
   background-color: var(--light-blue);
 }
 
+
+
 .shape-container {
   background-color: var(--dark-blue);
   border-radius: 16px;
@@ -138,7 +140,7 @@ body {
   /* margin: 8px 0;  */
 }
 
-.shape-box {
+.shape-btn {
   background-color: var(--silver);
   width: 198px;
   height: 54px;
@@ -146,9 +148,31 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  border: 0;
+}
+
+.shape-btn-dark {
+  background-color: var(--dark-blue);
+  width: 198px;
+  height: 54px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
 }
 
 .shape {
   width: 32px;
   height: 32px;
+}
+
+
+
+.silver path {
+  fill: var(--silver);
+}
+
+.dark-blue path {
+  fill: var(--dark-blue);
 }

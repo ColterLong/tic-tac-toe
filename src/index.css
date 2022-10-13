@@ -23,16 +23,16 @@ body {
   background: var(--dark-blue);
 }
 
-.container {
+/* .container {
   max-width: 460px;
   max-height: 471px;
   margin: 200px auto;
-  /* overflow: auto; */
+  
+  overflow: auto;
+   border: 1px solid steelblue;
+  border-radius: 5px;
 
-  /* border: 1px solid steelblue;
-  border-radius: 5px; */
-
-}
+} */
 
 
 
@@ -41,6 +41,43 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  max-width: 460px;
+  max-height: 471px;
+  margin: 200px auto;
+}
+
+.game-menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  max-width: 460px;
+  max-height: 623px;
+  margin: 200px auto;
+}
+
+.game-header {
+  display: flex;
+
+  max-width: 457px;
+  max-height: 52px;
+  width: 100%;
+
+
+
+
+
+  margin: 32px;
+}
+
+.game-content {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  grid-template-rows: repeat(3,1fr);
+  max-width: 460px;
+  max-height: 461px;
+  width: 100%;
 }
 
 .logo {
@@ -114,6 +151,18 @@ body {
   border-radius: 16px;
   border: 0px;
  
+}
+
+.game-btn {
+  width: 140px;
+  height: 140px;
+  color: var(--dark-blue);
+  background-color: var(--dark-blue-2);
+  border-radius: 16px;
+  border: 0px;
+
+  
+  margin: 4px;
 }
 
 .btns .orange {

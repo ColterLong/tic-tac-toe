@@ -5,7 +5,7 @@ import { ReactComponent as CircleShape } from './img/Oval.svg';
 import { ReactComponent as XShape } from './img/x-shape.svg';
 
 
-const StartMenu = () => {
+const StartMenu = ( { onSwitchMenu, onSwitchUser }) => {
   const [xSelected,setXSelected] = useState(true);
   const [circleSelected,setCircleSelected] = useState(false);
 
@@ -13,7 +13,7 @@ const StartMenu = () => {
     xSelected ? setXSelected(false) : setXSelected(true);
     circleSelected ? setCircleSelected(false) : setCircleSelected(true);
   }
-  
+
   return (
     <div className='start-menu'>
       <img src={logo} alt="" className='logo' />
@@ -32,8 +32,14 @@ const StartMenu = () => {
         <h1 className='font-body pick-player-text'>REMEMBER : X GOES FIRST</h1>
       </div>
       <div className='btns'>
-        <button className='orange btn font-s'>NEW GAME (VS CPU)</button>
-        <button className="blue btn font-s">NEW GAME (VS PLAYER)</button>
+        <button className='orange btn font-s'
+                onClick={() => onSwitchMenu()}>
+          NEW GAME (VS CPU)
+        </button>
+        <button className="blue btn font-s"
+                onClick={() => onSwitchMenu()}>
+          NEW GAME (VS PLAYER)
+        </button>
       </div>
     </div>
   )

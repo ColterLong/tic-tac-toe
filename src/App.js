@@ -4,25 +4,27 @@ import { useState } from 'react'
 
 function App() {
   const [showStartMenu, setShowStartMenu] = useState(true);
-  const [userSelection, setUserSelection] = useState("x");
+  const [userSelection, setUserSelection] = useState(true);
+
 
   const switchMenu = () => {
     showStartMenu ? setShowStartMenu(false) : setShowStartMenu(true);
   }
 
   const switchUser = () => {
-    if (userSelection === "x") {
-      setUserSelection("o");
-    } else {
-      setUserSelection("x");
-    }
+    // x is true, o is false
+    userSelection ? setUserSelection(false) : setUserSelection(true);
   }
 
   return (
     <div className="container">
       {showStartMenu 
-        ? <StartMenu onSwitchMenu={switchMenu} onSwitchUser={switchUser}/> 
-        : <GameMenu onSwitchMenu={switchMenu} onSwitchUser={switchUser}/> }
+        ? <StartMenu onSwitchMenu={switchMenu}
+                     showUserSelection={userSelection} 
+                     onSwitchUser={switchUser}/> 
+        : <GameMenu onSwitchMenu={switchMenu} 
+                    showUserSelection={userSelection}
+                    onSwitchUser={switchUser}/> }
     </div>
   );
 }

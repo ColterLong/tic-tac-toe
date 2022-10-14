@@ -1,8 +1,9 @@
 import logo from './img/both-shapes.svg';
 import { ReactComponent as CircleShape } from './img/Oval.svg';
 import { ReactComponent as XShape } from './img/x-shape.svg';
-import { ReactComponent as Redo } from './img/Redo.svg';
+import { ReactComponent as MainMenu } from './img/MainMenu.svg';
 import Button from './Button.js'
+
 
 const GameMenu = ( {onSwitchMenu, showUserSelection, onSwitchUser} ) => {
   return (
@@ -17,7 +18,7 @@ const GameMenu = ( {onSwitchMenu, showUserSelection, onSwitchUser} ) => {
           Turn
         </button>
         <button className="btn">
-          <Redo className='shape dark-blue'/>
+          <MainMenu className='shape dark-blue' onClick={() => onSwitchMenu()}/>
         </button>
       </div>
         <div className="game-content">
@@ -32,13 +33,17 @@ const GameMenu = ( {onSwitchMenu, showUserSelection, onSwitchUser} ) => {
           <Button />
         </div>
 
-
-
-        <button className="btn"
-                onClick={() => onSwitchMenu()}>
-            Go to Main menu
-        </button>
-        
+        <div className="game-score">
+          <button className="btn">
+            X
+          </button>
+          <button className="btn">
+            Ties
+          </button>
+          <button className="btn">
+            O
+          </button>
+        </div>   
     </div>
   )
 }

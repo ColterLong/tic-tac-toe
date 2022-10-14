@@ -158,9 +158,12 @@ body {
 }
 
 .game-header > *:nth-child(2) {
+  display: flex;
+  justify-content: center;
   width: 140px;
   height: 52px;
   background-color: var(--dark-blue-2);
+  align-items: center;
 }
 
 .game-header > *:nth-child(3) {
@@ -169,6 +172,10 @@ body {
   background-color: var(--silver);
 }
 
+.game-header .btn > *:first-child {
+  height: 20px;
+  width: 20px;
+}
 
 .game-content .btn {
   width: 140px;
@@ -179,6 +186,18 @@ body {
 .game-score .btn {
   width: 140px;
   height: 72px;
+}
+
+.game-score > *:first-child {
+  background-color: var(--light-blue);
+}
+
+.game-score > *:nth-child(2) {
+  background-color: var(--silver);
+}
+
+.game-score > *:nth-child(3) {
+  background-color: var(--orange);
 }
 
 
@@ -242,4 +261,8 @@ body {
 
 .dark-blue path {
   fill: var(--dark-blue);
+}
+
+.silver {
+  color: var(--silver);
 }

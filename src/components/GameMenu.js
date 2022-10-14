@@ -10,12 +10,12 @@ const GameMenu = ( {onSwitchMenu, showUserSelection, onSwitchUser} ) => {
     <div className='game-menu'>
       <div className="game-header">
         <img src={logo} alt="" />
-        <button className="btn">
+        <button className="btn silver font-xs">
           {showUserSelection 
-            ? <XShape className="shape silver"/>
-            : <CircleShape className="shape silver"/>
+            ? <XShape className="shape"/>
+            : <CircleShape className="shape"/>
           }
-          Turn
+           &nbsp;&nbsp;&nbsp;TURN
         </button>
         <button className="btn">
           <MainMenu className='shape dark-blue' onClick={() => onSwitchMenu()}/>

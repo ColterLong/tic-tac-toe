@@ -5,6 +5,7 @@ import { useState } from 'react'
 function App() {
   const [showStartMenu, setShowStartMenu] = useState(true);
   const [userSelection, setUserSelection] = useState(true);
+  const [currentPlayer, setCurrentPlayer] = useState(true);
 
 
   const switchMenu = () => {
@@ -12,8 +13,13 @@ function App() {
   }
 
   const switchUser = () => {
-    // x is true, o is false
+    // x is true, o is false. Default X selected
     userSelection ? setUserSelection(false) : setUserSelection(true);
+  }
+
+  const switchCurrentPlayer = () => {
+    // x is true, o is false. X always goes first so it's the default
+    currentPlayer ? setCurrentPlayer(false) : setCurrentPlayer(true);
   }
 
   return (
@@ -24,7 +30,9 @@ function App() {
                      onSwitchUser={switchUser}/> 
         : <GameMenu onSwitchMenu={switchMenu} 
                     showUserSelection={userSelection}
-                    onSwitchUser={switchUser}/> }
+                    onSwitchUser={switchUser}
+                    currentPlayer={currentPlayer}
+                    onSwitchCurrentPlayer={switchCurrentPlayer}/> }
     </div>
   );
 }

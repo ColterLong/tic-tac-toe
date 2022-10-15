@@ -5,13 +5,13 @@ import { ReactComponent as MainMenu } from './img/MainMenu.svg';
 import Button from './Button.js'
 
 
-const GameMenu = ( {onSwitchMenu, showUserSelection, onSwitchUser} ) => {
+const GameMenu = ( {onSwitchMenu, showUserSelection, onSwitchUser, currentPlayer, onSwitchCurrentPlayer} ) => {
   return (
     <div className='game-menu'>
       <div className="game-header">
         <img src={logo} alt="" />
         <button className="btn silver font-xs">
-          {showUserSelection 
+          {currentPlayer 
             ? <XShape className="shape"/>
             : <CircleShape className="shape"/>
           }
@@ -22,15 +22,15 @@ const GameMenu = ( {onSwitchMenu, showUserSelection, onSwitchUser} ) => {
         </button>
       </div>
         <div className="game-content">
-          <Button />
-          <Button />
-          <Button />
-          <Button />
-          <Button />
-          <Button />
-          <Button />
-          <Button />
-          <Button />
+          <Button currentPlayer={currentPlayer} onSwitchCurrentPlayer={onSwitchCurrentPlayer}/>
+          <Button currentPlayer={currentPlayer} onSwitchCurrentPlayer={onSwitchCurrentPlayer}/>
+          <Button currentPlayer={currentPlayer} onSwitchCurrentPlayer={onSwitchCurrentPlayer}/>
+          <Button currentPlayer={currentPlayer} onSwitchCurrentPlayer={onSwitchCurrentPlayer}/>
+          <Button currentPlayer={currentPlayer} onSwitchCurrentPlayer={onSwitchCurrentPlayer}/>
+          <Button currentPlayer={currentPlayer} onSwitchCurrentPlayer={onSwitchCurrentPlayer}/>
+          <Button currentPlayer={currentPlayer} onSwitchCurrentPlayer={onSwitchCurrentPlayer}/>
+          <Button currentPlayer={currentPlayer} onSwitchCurrentPlayer={onSwitchCurrentPlayer}/>
+          <Button currentPlayer={currentPlayer} onSwitchCurrentPlayer={onSwitchCurrentPlayer}/>
         </div>
 
         <div className="game-score">

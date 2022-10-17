@@ -3,16 +3,12 @@ import { ReactComponent as CircleShape } from './img/Oval.svg';
 import { ReactComponent as XShape } from './img/x-shape.svg';
 import { ReactComponent as MainMenu } from './img/MainMenu.svg';
 import Button from './Button.js'
-import GameContent from './GameContent';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 
 // change MainMenu to redo button
 
 // global disable button for game end?
-// useEffect for who wins?
-
-// state variable of array, update array
 
 const GameMenu = ( {onSwitchMenu, showUserSelection, onSwitchUser, currentPlayer, onSwitchCurrentPlayer} ) => {
   const [scoreboard,setScoreboard] = useState([
@@ -20,7 +16,27 @@ const GameMenu = ( {onSwitchMenu, showUserSelection, onSwitchUser, currentPlayer
     0,0,0,
     0,0,0
   ])
+
+  useEffect(() => {
+    console.log('useEffect ran, scoreboard is: ', scoreboard);
+    if (scoreboard[0] + scoreboard[1] + scoreboard[2] === 3) {
+      console.log('x won!');
+    }
+  }, [scoreboard]);
+
+
   
+  let updateScoreboard = function(index, shape) {
+    let newArr = [...scoreboard];
+    // shape:
+    // +1 is x
+    // -1 i o
+    shape 
+      ? newArr[index] += 1
+      : newArr[index] -= 1
+    setScoreboard(newArr);
+  }
+
   
   return (
     <div className='game-menu'>
@@ -38,19 +54,14 @@ const GameMenu = ( {onSwitchMenu, showUserSelection, onSwitchUser, currentPlayer
         </button>
       </div>
       <div className="game-content">
-        <Button currentPlayer={currentPlayer} onSwitchCurrentPlayer={onSwitchCurrentPlayer}/>
-        <Button currentPlayer={currentPlayer} onSwitchCurrentPlayer={onSwitchCurrentPlayer}/>
-        <Button currentPlayer={currentPlayer} onSwitchCurrentPlayer={onSwitchCurrentPlayer}/>
-        <Button currentPlayer={currentPlayer} onSwitchCurrentPlayer={onSwitchCurrentPlayer}/>
-        <Button currentPlayer={currentPlayer} onSwitchCurrentPlayer={onSwitchCurrentPlayer}/>
-        <Button currentPlayer={currentPlayer} onSwitchCurrentPlayer={onSwitchCurrentPlayer}/>
-        <Button currentPlayer={currentPlayer} onSwitchCurrentPlayer={onSwitchCurrentPlayer}/>
-        <Button currentPlayer={currentPlayer} onSwitchCurrentPlayer={onSwitchCurrentPlayer}/>
-        <Button currentPlayer={currentPlayer} onSwitchCurrentPlayer={onSwitchCurrentPlayer}/>
+        {[...Array(9)].map((x, i) =>
+          <Button currentPlayer={currentPlayer} 
+                  onSwitchCurrentPlayer={onSwitchCurrentPlayer} 
+                  onUpdateScoreboard={updateScoreboard}
+                  index={i}
+                  key={i}/>
+        )}
       </div>
-      {/* <GameContent currentPlayer={currentPlayer} onSwitchCurrentPlayer={onSwitchCurrentPlayer} /> */}
-
-
       <div className="game-score">
         <button className="btn">
           X

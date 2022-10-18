@@ -7,7 +7,6 @@ import { useEffect, useState } from 'react';
 
 
 // change MainMenu to redo button
-
 // global disable button for game end?
 
 const GameMenu = ( {onSwitchMenu, showUserSelection, onSwitchUser, currentPlayer, onSwitchCurrentPlayer} ) => {
@@ -18,14 +17,33 @@ const GameMenu = ( {onSwitchMenu, showUserSelection, onSwitchUser, currentPlayer
   ])
 
   useEffect(() => {
+    let sum = function(x,y,z) {
+      return scoreboard[x] + scoreboard[y] + scoreboard[z];
+    }
+
+    let sumScore = function(shape) {
+      let three = (shape) ? 3 : -3;
+      if (sum(0,1,2) === three ||
+          sum(3,4,5) === three ||
+          sum(6,7,8) === three ||
+          sum(0,3,6) === three ||
+          sum(1,4,7) === three ||
+          sum(2,5,8) === three ||
+          sum(0,4,8) === three ||
+          sum(6,4,2) === three) {
+            return true
+          }
+      return false
+    }
+
     console.log('useEffect ran, scoreboard is: ', scoreboard);
-    if (scoreboard[0] + scoreboard[1] + scoreboard[2] === 3) {
+    if (sumScore(true)) {
       console.log('x won!');
+    } else if (sumScore(false)) {
+      console.log('o won!');
     }
   }, [scoreboard]);
 
-
-  
   let updateScoreboard = function(index, shape) {
     let newArr = [...scoreboard];
     // shape:

@@ -2,6 +2,9 @@ import StartMenu from './components/StartMenu.js'
 import GameMenu from './components/GameMenu.js'
 import { useState } from 'react'
 
+import Alert from './components/Alert.js'
+
+
 function App() {
   const [showStartMenu, setShowStartMenu] = useState(true);
   const [userSelection, setUserSelection] = useState(true);
@@ -32,7 +35,9 @@ function App() {
                     showUserSelection={userSelection}
                     onSwitchUser={switchUser}
                     currentPlayer={currentPlayer}
-                    onSwitchCurrentPlayer={switchCurrentPlayer}/> }
+                    onSwitchCurrentPlayer={switchCurrentPlayer}/> 
+      }
+      {/* <Alert /> */}
     </div>
   );
 }

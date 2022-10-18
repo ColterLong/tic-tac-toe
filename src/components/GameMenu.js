@@ -3,6 +3,7 @@ import { ReactComponent as CircleShape } from './img/Oval.svg';
 import { ReactComponent as XShape } from './img/x-shape.svg';
 import { ReactComponent as MainMenu } from './img/MainMenu.svg';
 import Button from './Button.js'
+import Alert from './Alert.js'
 import { useEffect, useState } from 'react';
 
 
@@ -10,15 +11,18 @@ import { useEffect, useState } from 'react';
 // global disable button for game end?
 
 const GameMenu = ( {onSwitchMenu, showUserSelection, onSwitchUser, currentPlayer, onSwitchCurrentPlayer} ) => {
-  const [scoreboard,setScoreboard] = useState([
+  const [gameboard,setGameboard] = useState([
     0,0,0,
     0,0,0,
     0,0,0
   ])
+  const [scoreboard, setScoreboard] = useState([0,0,0]);
+  const [gameover, setGameover] = useState(false);
+  // const []
 
   useEffect(() => {
     let sum = function(x,y,z) {
-      return scoreboard[x] + scoreboard[y] + scoreboard[z];
+      return gameboard[x] + gameboard[y] + gameboard[z];
     }
 
     let sumScore = function(shape) {
@@ -36,24 +40,38 @@ const GameMenu = ( {onSwitchMenu, showUserSelection, onSwitchUser, currentPlayer
       return false
     }
 
-    console.log('useEffect ran, scoreboard is: ', scoreboard);
-    if (sumScore(true)) {
-      console.log('x won!');
-    } else if (sumScore(false)) {
-      console.log('o won!');
-    }
-  }, [scoreboard]);
+    console.log('useEffect ran, gameboard is: ', gameboard);
+    if (sumScore(true) || sumScore(false)) {
+      let newArr = [...scoreboard];
+      if (sumScore(true)) {
+        console.log('x won!');
+        newArr[0] +=1
+      } else if (sumScore(false)) {
+        console.log('o won!');
+        newArr[2] +=1
+      }
+      setScoreboard(newArr);
+      setGameover(true);
 
-  let updateScoreboard = function(index, shape) {
-    let newArr = [...scoreboard];
+    }
+  }, [gameboard]);
+
+  let updateGameboard = function(index, shape) {
+    let newArr = [...gameboard];
     // shape:
     // +1 is x
     // -1 i o
     shape 
       ? newArr[index] += 1
       : newArr[index] -= 1
-    setScoreboard(newArr);
+    setGameboard(newArr);
   }
+
+  let nextRound = function(gameresult) {
+    setGameover(false);
+  }
+
+
 
   
   return (
@@ -75,20 +93,26 @@ const GameMenu = ( {onSwitchMenu, showUserSelection, onSwitchUser, currentPlayer
         {[...Array(9)].map((x, i) =>
           <Button currentPlayer={currentPlayer} 
                   onSwitchCurrentPlayer={onSwitchCurrentPlayer} 
-                  onUpdateScoreboard={updateScoreboard}
+                  onUpdateGameboard={updateGameboard}
                   index={i}
                   key={i}/>
         )}
       </div>
+      {gameover ? <Alert title={currentPlayer + 'hi'}
+                         buttonOne='QUIT'
+                         buttonOneOnClick={onSwitchMenu}
+                         buttonTwo='NEXT ROUND'
+                         buttonTwoOnClick={nextRound} />
+              : null} 
       <div className="game-score">
         <button className="btn">
-          X
+          X: {scoreboard[0]}
         </button>
         <button className="btn">
-          Ties
+          Ties: {scoreboard[1]}
         </button>
         <button className="btn">
-          O
+          O: {scoreboard[2]}
         </button>
       </div>   
     </div>

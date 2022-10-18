@@ -35,7 +35,8 @@ function App() {
                     showUserSelection={userSelection}
                     onSwitchUser={switchUser}
                     currentPlayer={currentPlayer}
-                    onSwitchCurrentPlayer={switchCurrentPlayer}/> 
+                    onSwitchCurrentPlayer={switchCurrentPlayer}
+                    onSetCurrentPlayer={setCurrentPlayer}/> 
       }
       {/* <Alert /> */}
     </div>

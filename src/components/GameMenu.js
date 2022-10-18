@@ -9,8 +9,9 @@ import { useEffect, useState } from 'react';
 
 // change MainMenu to redo button
 // global disable button for game end?
+// implement tie
 
-const GameMenu = ( {onSwitchMenu, showUserSelection, onSwitchUser, currentPlayer, onSwitchCurrentPlayer} ) => {
+const GameMenu = ( {onSwitchMenu, showUserSelection, onSwitchUser, currentPlayer, onSwitchCurrentPlayer, onSetCurrentPlayer} ) => {
   const [gameboard,setGameboard] = useState([
     0,0,0,
     0,0,0,
@@ -18,7 +19,8 @@ const GameMenu = ( {onSwitchMenu, showUserSelection, onSwitchUser, currentPlayer
   ])
   const [scoreboard, setScoreboard] = useState([0,0,0]);
   const [gameover, setGameover] = useState(false);
-  // const []
+  const [lastWinner, setLastWinner] = useState();
+  const [gameboardKey, setGameboardKey] = useState(0);
 
   useEffect(() => {
     let sum = function(x,y,z) {
@@ -40,15 +42,17 @@ const GameMenu = ( {onSwitchMenu, showUserSelection, onSwitchUser, currentPlayer
       return false
     }
 
-    console.log('useEffect ran, gameboard is: ', gameboard);
+    // console.log('useEffect ran, gameboard is: ', gameboard);
     if (sumScore(true) || sumScore(false)) {
       let newArr = [...scoreboard];
       if (sumScore(true)) {
         console.log('x won!');
         newArr[0] +=1
+        setLastWinner('x');
       } else if (sumScore(false)) {
         console.log('o won!');
         newArr[2] +=1
+        setLastWinner('o');
       }
       setScoreboard(newArr);
       setGameover(true);
@@ -67,13 +71,14 @@ const GameMenu = ( {onSwitchMenu, showUserSelection, onSwitchUser, currentPlayer
     setGameboard(newArr);
   }
 
-  let nextRound = function(gameresult) {
+  let nextRound = function() {
+    setGameboardKey(gameboardKey + 1);
     setGameover(false);
+    setGameboard([0,0,0,0,0,0,0,0,0]);
+    onSetCurrentPlayer(true);
   }
 
 
-
-  
   return (
     <div className='game-menu'>
       <div className="game-header">
@@ -89,7 +94,7 @@ const GameMenu = ( {onSwitchMenu, showUserSelection, onSwitchUser, currentPlayer
           <MainMenu className='shape dark-blue' onClick={() => onSwitchMenu()}/>
         </button>
       </div>
-      <div className="game-content">
+      <div className="game-content" key={gameboardKey} >
         {[...Array(9)].map((x, i) =>
           <Button currentPlayer={currentPlayer} 
                   onSwitchCurrentPlayer={onSwitchCurrentPlayer} 
@@ -98,7 +103,7 @@ const GameMenu = ( {onSwitchMenu, showUserSelection, onSwitchUser, currentPlayer
                   key={i}/>
         )}
       </div>
-      {gameover ? <Alert title={currentPlayer + 'hi'}
+      {gameover ? <Alert title={lastWinner + ' won!'}
                          buttonOne='QUIT'
                          buttonOneOnClick={onSwitchMenu}
                          buttonTwo='NEXT ROUND'

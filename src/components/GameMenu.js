@@ -1,15 +1,15 @@
 import logo from './img/both-shapes.svg';
 import { ReactComponent as CircleShape } from './img/Oval.svg';
 import { ReactComponent as XShape } from './img/x-shape.svg';
-import { ReactComponent as MainMenu } from './img/MainMenu.svg';
+import { ReactComponent as RestartGame } from './img/RestartGame.svg';
 import Button from './Button.js'
 import Alert from './Alert.js'
 import { useEffect, useState } from 'react';
 
 
-// change MainMenu to redo button
+// change RestartGame to redo button
 // global disable button for game end?
-// implement tie
+// add multiplayer
 
 const GameMenu = ( {onSwitchMenu, showUserSelection, onSwitchUser, currentPlayer, onSwitchCurrentPlayer, onSetCurrentPlayer} ) => {
   const [gameboard,setGameboard] = useState([
@@ -21,6 +21,7 @@ const GameMenu = ( {onSwitchMenu, showUserSelection, onSwitchUser, currentPlayer
   const [gameover, setGameover] = useState(false);
   const [lastWinner, setLastWinner] = useState();
   const [gameboardKey, setGameboardKey] = useState(0);
+  const [showRestart, setShowRestart] = useState(false);
 
   useEffect(() => {
     let sum = function(x,y,z) {
@@ -100,6 +101,14 @@ const GameMenu = ( {onSwitchMenu, showUserSelection, onSwitchUser, currentPlayer
     onSetCurrentPlayer(true);
   }
 
+  let setShowRestartFalse = function() {
+    setShowRestart(false);
+  }
+
+  let restartGame = function() {
+    nextRound();
+    setShowRestartFalse();
+  }
 
   return (
     <div className='game-menu'>
@@ -113,7 +122,7 @@ const GameMenu = ( {onSwitchMenu, showUserSelection, onSwitchUser, currentPlayer
            &nbsp;&nbsp;&nbsp;TURN
         </button>
         <button className="btn">
-          <MainMenu className='shape dark-blue' onClick={() => onSwitchMenu()}/>
+          <RestartGame className='shape dark-blue' onClick={() => setShowRestart(true)}/>
         </button>
       </div>
       <div className="game-content" key={gameboardKey} >
@@ -124,14 +133,7 @@ const GameMenu = ( {onSwitchMenu, showUserSelection, onSwitchUser, currentPlayer
                   index={i}
                   key={i}/>
         )}
-      </div>
-      {gameover ? <Alert title={lastWinner}
-                         buttonOne='QUIT'
-                         buttonOneOnClick={onSwitchMenu}
-                         buttonTwo='NEXT ROUND'
-                         buttonTwoOnClick={nextRound}
-                   />
-              : null} 
+      </div> 
       <div className="game-score">
         <button className="btn">
           X
@@ -146,6 +148,25 @@ const GameMenu = ( {onSwitchMenu, showUserSelection, onSwitchUser, currentPlayer
           <h1 className="font">{scoreboard[2]}</h1>
         </button>
       </div>   
+
+
+      {gameover ? <Alert title={lastWinner}
+                         buttonOne='QUIT'
+                         buttonOneOnClick={onSwitchMenu}
+                         buttonTwo='NEXT ROUND'
+                         buttonTwoOnClick={nextRound}
+                   />
+              : null
+      }
+
+      {showRestart ? <Alert title='RESTART GAME?'
+                         buttonOne='NO, CANCEL'
+                         buttonOneOnClick={setShowRestartFalse}
+                         buttonTwo='YES, RESTART'
+                         buttonTwoOnClick={restartGame}
+                   />
+              : null
+      }
     </div>
   )
 }

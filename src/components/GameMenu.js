@@ -27,7 +27,17 @@ const GameMenu = ( {onSwitchMenu, showUserSelection, onSwitchUser, currentPlayer
       return gameboard[x] + gameboard[y] + gameboard[z];
     }
 
-    let sumScore = function(shape) {
+    let isGameboardFull = function() {
+      for (let i = 0; i < 10 ; i++) {
+        if (gameboard[i] === 0) return false;
+      }
+      return true
+    }
+
+    let sumScore = function(shape=true) {
+      console.log(gameboard);
+      console.log('is gameboard full: ' + isGameboardFull());
+
       let three = (shape) ? 3 : -3;
       if (sum(0,1,2) === three ||
           sum(3,4,5) === three ||
@@ -37,22 +47,33 @@ const GameMenu = ( {onSwitchMenu, showUserSelection, onSwitchUser, currentPlayer
           sum(2,5,8) === three ||
           sum(0,4,8) === three ||
           sum(6,4,2) === three) {
-            return true
+            if (shape) {
+              return 'x'
+            } else {
+              return 'o'
+            }
           }
+      if (isGameboardFull()) {
+        return 'tie'
+      }
       return false
     }
 
     // console.log('useEffect ran, gameboard is: ', gameboard);
     if (sumScore(true) || sumScore(false)) {
       let newArr = [...scoreboard];
-      if (sumScore(true)) {
+      if (sumScore(true) == 'x') {
         console.log('x won!');
         newArr[0] +=1
         setLastWinner('x');
-      } else if (sumScore(false)) {
+      } else if (sumScore(false) == 'o') {
         console.log('o won!');
         newArr[2] +=1
         setLastWinner('o');
+      } else if (sumScore() == 'tie') {
+        console.log('tie!')
+        newArr[1] +=1
+        setLastWinner('tie')
       }
       setScoreboard(newArr);
       setGameover(true);

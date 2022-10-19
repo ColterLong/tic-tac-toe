@@ -38,7 +38,6 @@ function App() {
                     onSwitchCurrentPlayer={switchCurrentPlayer}
                     onSetCurrentPlayer={setCurrentPlayer}/> 
       }
-      {/* <Alert /> */}
     </div>
   );
 }

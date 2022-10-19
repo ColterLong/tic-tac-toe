@@ -20,6 +20,8 @@ const GameMenu = ( {onSwitchMenu, showUserSelection, onSwitchUser, currentPlayer
   const [lastWinner, setLastWinner] = useState();
   const [gameboardKey, setGameboardKey] = useState(0);
   const [showRestart, setShowRestart] = useState(false);
+  const [areButtonsDisabled, setAreButtonsDisabled] = useState(false);
+  
 
   useEffect(() => {
     let sum = function(x,y,z) {
@@ -76,6 +78,7 @@ const GameMenu = ( {onSwitchMenu, showUserSelection, onSwitchUser, currentPlayer
       }
       setScoreboard(newArr);
       setGameover(true);
+      setAreButtonsDisabled(true);
 
     }
   }, [gameboard]);
@@ -97,15 +100,27 @@ const GameMenu = ( {onSwitchMenu, showUserSelection, onSwitchUser, currentPlayer
     setGameover(false);
     setGameboard([0,0,0,0,0,0,0,0,0]);
     onSetCurrentPlayer(true);
+    setAreButtonsDisabled(false);
   }
 
   let setShowRestartFalse = function() {
     setShowRestart(false);
+    setAreButtonsDisabled(false);
+  }
+
+  let setShowRestartTrue = function() {
+    setAreButtonsDisabled(true);
+    setShowRestart(true);
   }
 
   let restartGame = function() {
     nextRound();
     setShowRestartFalse();
+  }
+
+  let quit = function() {
+    nextRound();
+    onSwitchMenu();
   }
 
   return (
@@ -119,8 +134,8 @@ const GameMenu = ( {onSwitchMenu, showUserSelection, onSwitchUser, currentPlayer
           }
            &nbsp;&nbsp;&nbsp;TURN
         </button>
-        <button className="btn">
-          <RestartGame className='shape dark-blue' onClick={() => setShowRestart(true)}/>
+        <button className="btn"  disabled={areButtonsDisabled} onClick={() => setShowRestartTrue()}>
+          <RestartGame className='shape dark-blue'/>
         </button>
       </div>
       <div className="game-content" key={gameboardKey} >
@@ -129,7 +144,8 @@ const GameMenu = ( {onSwitchMenu, showUserSelection, onSwitchUser, currentPlayer
                   onSwitchCurrentPlayer={onSwitchCurrentPlayer} 
                   onUpdateGameboard={updateGameboard}
                   index={i}
-                  key={i}/>
+                  key={i}
+                  onAreButtonsDisabled={areButtonsDisabled}/>
         )}
       </div> 
       <div className="game-score">
@@ -150,7 +166,7 @@ const GameMenu = ( {onSwitchMenu, showUserSelection, onSwitchUser, currentPlayer
 
       {gameover ? <Alert title={lastWinner}
                          buttonOne='QUIT'
-                         buttonOneOnClick={onSwitchMenu}
+                         buttonOneOnClick={quit}
                          buttonTwo='NEXT ROUND'
                          buttonTwoOnClick={nextRound}
                    />

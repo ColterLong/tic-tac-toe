@@ -73,13 +73,14 @@ const GameMenu = ( {onSwitchMenu, showUserSelection, onSwitchUser, currentPlayer
       } else if (sumScore() == 'tie') {
         console.log('tie!')
         newArr[1] +=1
-        setLastWinner('tie')
+        setLastWinner('ROUND TIED')
       }
       setScoreboard(newArr);
       setGameover(true);
 
     }
   }, [gameboard]);
+
 
   let updateGameboard = function(index, shape) {
     let newArr = [...gameboard];
@@ -124,21 +125,25 @@ const GameMenu = ( {onSwitchMenu, showUserSelection, onSwitchUser, currentPlayer
                   key={i}/>
         )}
       </div>
-      {gameover ? <Alert title={lastWinner + ' won!'}
+      {gameover ? <Alert title={lastWinner}
                          buttonOne='QUIT'
                          buttonOneOnClick={onSwitchMenu}
                          buttonTwo='NEXT ROUND'
-                         buttonTwoOnClick={nextRound} />
+                         buttonTwoOnClick={nextRound}
+                   />
               : null} 
       <div className="game-score">
         <button className="btn">
-          X: {scoreboard[0]}
+          X
+          <h1 className="font-m">{scoreboard[0]}</h1>
         </button>
         <button className="btn">
-          Ties: {scoreboard[1]}
+          TIES 
+          <h1 className="font-m">{scoreboard[1]}</h1>
         </button>
         <button className="btn">
-          O: {scoreboard[2]}
+          O
+          <h1 className="font">{scoreboard[2]}</h1>
         </button>
       </div>   
     </div>

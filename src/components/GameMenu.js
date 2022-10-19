@@ -6,8 +6,6 @@ import Button from './Button.js'
 import Alert from './Alert.js'
 import { useEffect, useState } from 'react';
 
-
-// change RestartGame to redo button
 // global disable button for game end?
 // add multiplayer
 

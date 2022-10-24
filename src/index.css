@@ -23,17 +23,6 @@ body {
   background: var(--dark-blue);
 }
 
-/* .container {
-  max-width: 460px;
-  max-height: 471px;
-  margin: 200px auto;
-  
-  overflow: auto;
-   border: 1px solid steelblue;
-  border-radius: 5px;
-
-} */
-
 
 
 .start-menu
@@ -91,13 +80,13 @@ body {
 .pick-player {
   width: 100%;
   background-color: var(--dark-blue-2);
-  border-radius: 16px;
+  border-radius: 15px;
   padding: 16px;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 0px;
-  
+  box-shadow: inset 0px -8px 0px #10212A;
 }
 
 .pick-player .font-xs,
@@ -107,6 +96,7 @@ body {
 
 .pick-player .font-body {
   font-weight: 400;
+  opacity: 0.5;
 }
 
 
@@ -144,7 +134,7 @@ body {
 .btns {
   max-width: 460px;
   max-height: 154px;
- 
+  
 }
 
 .pick-player-text {
@@ -155,7 +145,7 @@ body {
   width: 460px;
   height: 67px;
   color: var(--dark-blue);
-  border-radius: 16px;
+  border-radius: 15px;
   border: 0px;
  
 }
@@ -184,6 +174,7 @@ body {
   width: 140px;
   height: 140px;
   background-color: var(--dark-blue-2);
+  box-shadow: inset 0px -8px 0px #10212A;
 }
 
 .game-score .btn {
@@ -256,17 +247,19 @@ body {
 .btns .orange {
   margin: 30px 0 20px;
   background-color: var(--orange);
+  box-shadow: inset 0px -8px 0px #CC8B13;
 }
 
 .btns .blue {
   background-color: var(--light-blue);
+  box-shadow: inset 0px -8px 0px #118C87;
 }
 
 
 
 .shape-container {
   background-color: var(--dark-blue);
-  border-radius: 16px;
+  border-radius: 15px;
   max-width: 412px;
   height: 72px;
   width: 100%;
@@ -281,7 +274,7 @@ body {
   background-color: var(--silver);
   width: 198px;
   height: 54px;
-  border-radius: 16px;
+  border-radius: 15px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -292,7 +285,7 @@ body {
   background-color: var(--dark-blue);
   width: 198px;
   height: 54px;
-  border-radius: 16px;
+  border-radius: 15px;
   display: flex;
   align-items: center;
   justify-content: center;

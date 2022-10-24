@@ -4,8 +4,13 @@ import { ReactComponent as CircleShape } from './img/Oval.svg';
 import { ReactComponent as XShape } from './img/x-shape.svg';
 
 
-const StartMenu = ( { onSwitchMenu, showUserSelection, onSwitchUser }) => {
+const StartMenu = ( { onSwitchMenu, showUserSelection, onSwitchUser, onSetIsMultiplayer }) => {
   // showUserSelection = true means x is selected, false is o
+  let changeMenus = function(bool) {
+    onSetIsMultiplayer(bool);
+    onSwitchMenu()
+  }
+  
   return (
     <div className='start-menu'>
       <img src={logo} alt="" className='logo' />
@@ -25,11 +30,11 @@ const StartMenu = ( { onSwitchMenu, showUserSelection, onSwitchUser }) => {
       </div>
       <div className='btns'>
         <button className='orange btn font-s'
-                onClick={() => onSwitchMenu()}>
+                onClick={() => changeMenus(false)}>
           NEW GAME (VS CPU)
         </button>
         <button className="blue btn font-s"
-                onClick={() => onSwitchMenu()}>
+                onClick={() => changeMenus(true)}>
           NEW GAME (VS PLAYER)
         </button>
       </div>

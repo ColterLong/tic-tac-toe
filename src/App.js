@@ -9,6 +9,7 @@ function App() {
   const [showStartMenu, setShowStartMenu] = useState(true);
   const [userSelection, setUserSelection] = useState(true);
   const [currentPlayer, setCurrentPlayer] = useState(true);
+  const [isMultiplayer, setIsMultiplayer] = useState(false);
 
 
   const switchMenu = () => {
@@ -30,13 +31,15 @@ function App() {
       {showStartMenu 
         ? <StartMenu onSwitchMenu={switchMenu}
                      showUserSelection={userSelection} 
-                     onSwitchUser={switchUser}/> 
+                     onSwitchUser={switchUser}
+                     onSetIsMultiplayer={setIsMultiplayer}/> 
         : <GameMenu onSwitchMenu={switchMenu} 
                     showUserSelection={userSelection}
                     onSwitchUser={switchUser}
                     currentPlayer={currentPlayer}
                     onSwitchCurrentPlayer={switchCurrentPlayer}
-                    onSetCurrentPlayer={setCurrentPlayer}/> 
+                    onSetCurrentPlayer={setCurrentPlayer}
+                    onIsMultiplayer={isMultiplayer}/> 
       }
     </div>
   );

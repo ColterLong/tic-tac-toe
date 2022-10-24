@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react';
 // global disable button for game end?
 // add multiplayer
 
-const GameMenu = ( {onSwitchMenu, showUserSelection, onSwitchUser, currentPlayer, onSwitchCurrentPlayer, onSetCurrentPlayer} ) => {
+const GameMenu = ( {onSwitchMenu, showUserSelection, onSwitchUser, currentPlayer, onSwitchCurrentPlayer, onSetCurrentPlayer, onIsMultiplayer} ) => {
   const [gameboard,setGameboard] = useState([
     0,0,0,
     0,0,0,
@@ -23,44 +23,40 @@ const GameMenu = ( {onSwitchMenu, showUserSelection, onSwitchUser, currentPlayer
   const [areButtonsDisabled, setAreButtonsDisabled] = useState(false);
   
 
-  useEffect(() => {
-    let sum = function(x,y,z) {
-      return gameboard[x] + gameboard[y] + gameboard[z];
+  let sum = function(x,y,z) {
+    return gameboard[x] + gameboard[y] + gameboard[z];
+  }
+
+  let isGameboardFull = function() {
+    for (let i = 0; i < 10 ; i++) {
+      if (gameboard[i] === 0) return false;
     }
+    return true
+  }
 
-    let isGameboardFull = function() {
-      for (let i = 0; i < 10 ; i++) {
-        if (gameboard[i] === 0) return false;
-      }
-      return true
-    }
-
-    let sumScore = function(shape=true) {
-      console.log(gameboard);
-      console.log('is gameboard full: ' + isGameboardFull());
-
-      let three = (shape) ? 3 : -3;
-      if (sum(0,1,2) === three ||
-          sum(3,4,5) === three ||
-          sum(6,7,8) === three ||
-          sum(0,3,6) === three ||
-          sum(1,4,7) === three ||
-          sum(2,5,8) === three ||
-          sum(0,4,8) === three ||
-          sum(6,4,2) === three) {
-            if (shape) {
-              return 'x'
-            } else {
-              return 'o'
-            }
+  let sumScore = function(shape=true) {
+    let three = (shape) ? 3 : -3;
+    if (sum(0,1,2) === three ||
+        sum(3,4,5) === three ||
+        sum(6,7,8) === three ||
+        sum(0,3,6) === three ||
+        sum(1,4,7) === three ||
+        sum(2,5,8) === three ||
+        sum(0,4,8) === three ||
+        sum(6,4,2) === three) {
+          if (shape) {
+            return 'x'
+          } else {
+            return 'o'
           }
-      if (isGameboardFull()) {
-        return 'tie'
-      }
-      return false
+        }
+    if (isGameboardFull()) {
+      return 'tie'
     }
+    return false
+  }
 
-    // console.log('useEffect ran, gameboard is: ', gameboard);
+  useEffect(() => {
     if (sumScore(true) || sumScore(false)) {
       let newArr = [...scoreboard];
       if (sumScore(true) == 'x') {
@@ -78,11 +74,30 @@ const GameMenu = ( {onSwitchMenu, showUserSelection, onSwitchUser, currentPlayer
       }
       setScoreboard(newArr);
       setGameover(true);
+      console.log('scoreboard should be: ' + newArr);
+      console.log('scoreboard: ' + scoreboard);
+      console.log('is gameover: ' + gameover);
       setAreButtonsDisabled(true);
 
     }
   }, [gameboard]);
 
+
+  useEffect(() => {
+    console.log('is game over before running second: ' + gameover);
+    if (!onIsMultiplayer && showUserSelection !== currentPlayer && !isGameboardFull() && !gameover 
+         && !sumScore(true) && !sumScore(false) ) {
+      let testIndex = Math.floor(Math.random() * 9);
+      while (gameboard[testIndex] !== 0) {
+        testIndex = Math.floor(Math.random() * 9)
+        if (gameboard[testIndex] === 0) break;
+      }
+      console.log('test index: ' + testIndex);
+      console.log('current player changed to: ' + currentPlayer);
+      updateGameboard(testIndex,currentPlayer);
+      onSwitchCurrentPlayer();
+    } 
+  }, [currentPlayer])
 
   let updateGameboard = function(index, shape) {
     let newArr = [...gameboard];
@@ -96,11 +111,13 @@ const GameMenu = ( {onSwitchMenu, showUserSelection, onSwitchUser, currentPlayer
   }
 
   let nextRound = function() {
-    setGameboardKey(gameboardKey + 1);
+    
     setGameover(false);
     setGameboard([0,0,0,0,0,0,0,0,0]);
     onSetCurrentPlayer(true);
     setAreButtonsDisabled(false);
+    setGameboardKey(gameboardKey + 1);
+    // moved setGameboardKey later and playing as O sometimes works
   }
 
   let setShowRestartFalse = function() {
@@ -145,7 +162,8 @@ const GameMenu = ( {onSwitchMenu, showUserSelection, onSwitchUser, currentPlayer
                   onUpdateGameboard={updateGameboard}
                   index={i}
                   key={i}
-                  onAreButtonsDisabled={areButtonsDisabled}/>
+                  onAreButtonsDisabled={areButtonsDisabled}
+                  myIndex={gameboard[i]}/>
         )}
       </div> 
       <div className="game-score">

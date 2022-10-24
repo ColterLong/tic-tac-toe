@@ -1,8 +1,8 @@
 import { ReactComponent as CircleShape } from './img/Oval.svg';
 import { ReactComponent as XShape } from './img/x-shape.svg';
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
-const Button = ( { currentPlayer, onSwitchCurrentPlayer, onUpdateGameboard, index, onAreButtonsDisabled } ) => {
+const Button = ( { currentPlayer, onSwitchCurrentPlayer, onUpdateGameboard, index, onAreButtonsDisabled, myIndex } ) => {
   const [disable, setDisable] = useState(false);
   const [selectedShape, setSelectedShape] = useState(false);
 
@@ -13,6 +13,14 @@ const Button = ( { currentPlayer, onSwitchCurrentPlayer, onUpdateGameboard, inde
     onUpdateGameboard(index,currentPlayer);
     onSwitchCurrentPlayer();
   }
+
+  useEffect(() => {
+    if (myIndex !== 0) {
+      setDisable(true);
+      setSelectedShape(!currentPlayer);
+      //onSwitchCurrentPlayer();
+    }
+  }, [myIndex]);
 
   return (
     <button

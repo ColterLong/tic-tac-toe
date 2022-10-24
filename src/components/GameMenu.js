@@ -6,9 +6,6 @@ import Button from './Button.js'
 import Alert from './Alert.js'
 import { useEffect, useState } from 'react';
 
-// global disable button for game end?
-// add multiplayer
-
 const GameMenu = ( {onSwitchMenu, showUserSelection, onSwitchUser, currentPlayer, onSwitchCurrentPlayer, onSetCurrentPlayer, onIsMultiplayer} ) => {
   const [gameboard,setGameboard] = useState([
     0,0,0,
@@ -74,9 +71,9 @@ const GameMenu = ( {onSwitchMenu, showUserSelection, onSwitchUser, currentPlayer
       }
       setScoreboard(newArr);
       setGameover(true);
-      console.log('scoreboard should be: ' + newArr);
-      console.log('scoreboard: ' + scoreboard);
-      console.log('is gameover: ' + gameover);
+      //console.log('scoreboard should be: ' + newArr);
+      //console.log('scoreboard: ' + scoreboard);
+      //console.log('is gameover: ' + gameover);
       setAreButtonsDisabled(true);
 
     }
@@ -84,20 +81,19 @@ const GameMenu = ( {onSwitchMenu, showUserSelection, onSwitchUser, currentPlayer
 
 
   useEffect(() => {
-    console.log('is game over before running second: ' + gameover);
-    if (!onIsMultiplayer && showUserSelection !== currentPlayer && !isGameboardFull() && !gameover 
+    // multiplayer cpu
+
+    if (!onIsMultiplayer && showUserSelection !== currentPlayer && !isGameboardFull() 
          && !sumScore(true) && !sumScore(false) ) {
       let testIndex = Math.floor(Math.random() * 9);
       while (gameboard[testIndex] !== 0) {
         testIndex = Math.floor(Math.random() * 9)
         if (gameboard[testIndex] === 0) break;
       }
-      console.log('test index: ' + testIndex);
-      console.log('current player changed to: ' + currentPlayer);
       updateGameboard(testIndex,currentPlayer);
       onSwitchCurrentPlayer();
     } 
-  }, [currentPlayer])
+  }, [currentPlayer,gameboardKey])
 
   let updateGameboard = function(index, shape) {
     let newArr = [...gameboard];
@@ -111,13 +107,13 @@ const GameMenu = ( {onSwitchMenu, showUserSelection, onSwitchUser, currentPlayer
   }
 
   let nextRound = function() {
-    
     setGameover(false);
     setGameboard([0,0,0,0,0,0,0,0,0]);
+    console.log('next round: pre current player: ' + currentPlayer);
     onSetCurrentPlayer(true);
+    console.log('next round: post current player: ' + currentPlayer);
     setAreButtonsDisabled(false);
     setGameboardKey(gameboardKey + 1);
-    // moved setGameboardKey later and playing as O sometimes works
   }
 
   let setShowRestartFalse = function() {

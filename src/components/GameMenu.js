@@ -127,6 +127,7 @@ const GameMenu = ( {onSwitchMenu, showUserSelection, onSwitchUser, currentPlayer
   }
 
   let restartGame = function() {
+    setScoreboard([0,0,0]);
     nextRound();
     setShowRestartFalse();
   }

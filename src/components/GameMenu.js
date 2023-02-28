@@ -183,7 +183,7 @@ const GameMenu = ( {onSwitchMenu, showUserSelection, onSwitchUser, currentPlayer
                          buttonOneOnClick={quit}
                          buttonTwo='NEXT ROUND'
                          buttonTwoOnClick={nextRound}
-                         resultText="hi"
+                        // resultText="hi"
                    />
               : null
       }

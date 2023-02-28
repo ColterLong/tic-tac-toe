@@ -326,3 +326,8 @@ body {
 .silver {
   color: var(--silver);
 }
+
+
+.result-shape-div {
+  display: flex;
+}

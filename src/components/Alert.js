@@ -22,11 +22,13 @@ const Alert = ({ title, buttonOne, buttonOneOnClick, buttonTwo, buttonTwoOnClick
             {willShowShape() ? 
                               <>
                               <h1>{resultText}</h1>
-                              <h1 className={"font-l " + color}>
+                              <div className='result-shape-div'>
                                 {shape ? <XShape className="shape"/>
-                                      : <CircleShape className="shape"/>}
-                                &nbsp; TAKES THE ROUND!
-                              </h1>
+                                        : <CircleShape className="shape"/>}
+                                <h1 className={"font-l " + color}>
+                                  &nbsp; TAKES THE ROUND!
+                                </h1>
+                              </div>
                               </>
                              : <h1 className="font-l silver">{title}</h1>
             } 
